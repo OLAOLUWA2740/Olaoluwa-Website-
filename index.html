@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Olaoluwa Anthony Oyeyipo — Video Editor · Graphic Designer · Website Designer</title>
+<meta name="description" content="Olaoluwa Anthony Oyeyipo — Video Editor, Graphic Designer & Website Designer. Bringing brands to life through motion, design and code.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0c0d10;
+    --panel:#15171c;
+    --panel-2:#1c1f26;
+    --line:rgba(255,255,255,0.09);
+    --paper:#eee9df;
+    --muted:#8b919c;
+    --amber:#ffb02e;
+    --teal:#33d6c0;
+    --radius:2px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--ink);
+    color:var(--paper);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--amber);color:#0c0d10;}
+  h1,h2,h3{font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-0.01em;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+  a{color:inherit;text-decoration:none;}
+  img{display:block;max-width:100%;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px;}
+  section{position:relative;}
+
+  /* ===== TIMELINE NAV (signature element) ===== */
+  .timeline-nav{
+    position:sticky;top:0;z-index:100;
+    background:rgba(12,13,16,0.92);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .timeline-track{
+    position:relative;
+    max-width:1180px;margin:0 auto;
+    padding:14px 28px 0 28px;
+  }
+  .timeline-row{
+    display:flex;align-items:center;justify-content:space-between;
+    padding-bottom:10px;
+  }
+  .timeline-brand{
+    font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;
+    display:flex;align-items:center;gap:8px;
+  }
+  .timeline-brand .dot{
+    width:8px;height:8px;border-radius:50%;background:var(--amber);
+    box-shadow:0 0 0 3px rgba(255,176,46,0.18);
+    animation:pulse 2.2s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{opacity:1;} 50%{opacity:0.35;}
+  }
+  .timeline-marks{
+    display:flex;gap:0;list-style:none;
+  }
+  .timeline-marks li{position:relative;}
+  .timeline-marks a{
+    display:block;
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;letter-spacing:0.04em;
+    color:var(--muted);
+    padding:6px 14px;
+    transition:color .2s ease;
+    white-space:nowrap;
+  }
+  .timeline-marks a span{
+    display:block;font-family:'Inter',sans-serif;font-size:12px;color:var(--paper);
+    margin-top:2px;font-weight:500;letter-spacing:0;
+  }
+  .timeline-marks a:hover{color:var(--amber);}
+  .timeline-marks li.active a{color:var(--amber);}
+  .timeline-ruler{
+    height:3px;background:var(--panel-2);position:relative;
+    border-radius:2px;overflow:hidden;
+  }
+  .timeline-fill{
+    position:absolute;left:0;top:0;height:100%;
+    background:linear-gradient(90deg,var(--teal),var(--amber));
+    width:0%;
+    transition:width .15s linear;
+  }
+  .playhead{
+    position:absolute;top:-4px;
+    width:2px;height:11px;background:var(--amber);
+    left:0%;transition:left .15s linear;
+  }
+  @media (max-width:760px){
+    .timeline-marks{display:none;}
+  }
+
+  /* ===== HERO ===== */
+  .hero{
+    padding:90px 0 100px;
+    border-bottom:1px solid var(--line);
+    background:
+      radial-gradient(circle at 85% 10%, rgba(51,214,192,0.08), transparent 45%),
+      radial-gradient(circle at 10% 90%, rgba(255,176,46,0.07), transparent 45%);
+  }
+  .hero-grid{
+    display:grid;grid-template-columns:1.15fr 0.85fr;gap:60px;align-items:center;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--teal);
+    letter-spacing:0.12em;text-transform:uppercase;
+    display:flex;align-items:center;gap:10px;margin-bottom:22px;
+  }
+  .eyebrow::before{content:"";width:24px;height:1px;background:var(--teal);}
+  .hero h1{
+    font-size:clamp(2.6rem,5.2vw,4.4rem);
+    line-height:1.02;
+    margin-bottom:22px;
+  }
+  .hero h1 em{
+    font-style:normal;color:var(--amber);
+  }
+  .role-strip{
+    display:flex;flex-wrap:wrap;gap:10px;margin-bottom:30px;
+  }
+  .role-strip span{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12.5px;
+    border:1px solid var(--line);
+    padding:7px 13px;
+    border-radius:2px;
+    color:var(--paper);
+    background:rgba(255,255,255,0.02);
+  }
+  .role-strip span::before{content:"▸ ";color:var(--amber);}
+  .hero p.lead{
+    color:var(--muted);font-size:16.5px;max-width:480px;margin-bottom:34px;
+  }
+  .btn-row{display:flex;gap:14px;flex-wrap:wrap;}
+  .btn{
+    font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14.5px;
+    padding:14px 26px;border-radius:2px;display:inline-flex;align-items:center;gap:8px;
+    transition:transform .15s ease, background .2s ease;
+  }
+  .btn-primary{background:var(--amber);color:#0c0d10;}
+  .btn-primary:hover{transform:translateY(-2px);}
+  .btn-ghost{border:1px solid var(--line);color:var(--paper);}
+  .btn-ghost:hover{border-color:var(--amber);color:var(--amber);}
+
+  .frame{
+    position:relative;
+    border:1px solid var(--line);
+    background:var(--panel);
+    padding:14px;
+  }
+  .frame::before,.frame::after,
+  .frame .corner-tl,.frame .corner-br{
+    content:"";position:absolute;width:18px;height:18px;
+  }
+  .frame .corner{position:absolute;width:16px;height:16px;border-color:var(--amber);}
+  .frame .corner.tl{top:-1px;left:-1px;border-top:2px solid var(--amber);border-left:2px solid var(--amber);}
+  .frame .corner.tr{top:-1px;right:-1px;border-top:2px solid var(--amber);border-right:2px solid var(--amber);}
+  .frame .corner.bl{bottom:-1px;left:-1px;border-bottom:2px solid var(--amber);border-left:2px solid var(--amber);}
+  .frame .corner.br{bottom:-1px;right:-1px;border-bottom:2px solid var(--amber);border-right:2px solid var(--amber);}
+  .frame img{width:100%;height:auto;display:block;}
+  .frame-tag{
+    position:absolute;bottom:24px;left:24px;
+    background:rgba(12,13,16,0.85);border:1px solid var(--line);
+    font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--amber);
+    padding:5px 10px;letter-spacing:0.05em;
+  }
+
+  /* ===== SECTION HEADERS ===== */
+  .sec-head{
+    display:flex;align-items:baseline;gap:16px;margin-bottom:46px;
+  }
+  .sec-num{
+    font-family:'JetBrains Mono',monospace;color:var(--amber);font-size:13px;
+  }
+  .sec-head h2{font-size:clamp(1.8rem,3vw,2.4rem);}
+  .sec-rule{flex:1;height:1px;background:var(--line);}
+
+  section.block{padding:100px 0;border-bottom:1px solid var(--line);}
+
+  /* ===== ABOUT ===== */
+  .about-grid{
+    display:grid;grid-template-columns:0.8fr 1.2fr;gap:64px;align-items:start;
+  }
+  .about-grid p{color:var(--muted);font-size:16px;margin-bottom:18px;max-width:560px;}
+  .about-grid p strong{color:var(--paper);font-weight:600;}
+  .capability-list{
+    display:grid;gap:0;margin-top:30px;border-top:1px solid var(--line);
+  }
+  .capability-list .cap{
+    display:flex;gap:20px;padding:20px 0;border-bottom:1px solid var(--line);
+  }
+  .cap .cap-mark{
+    font-family:'JetBrains Mono',monospace;color:var(--teal);font-size:13px;padding-top:3px;width:54px;flex-shrink:0;
+  }
+  .cap h4{font-family:'Space Grotesk',sans-serif;font-size:16.5px;margin-bottom:6px;}
+  .cap p{color:var(--muted);font-size:14.5px;margin:0;max-width:none;}
+
+  /* ===== SERVICES ===== */
+  .services-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+    background:var(--line);border:1px solid var(--line);
+  }
+  .service-card{
+    background:var(--ink);padding:40px 32px;
+    display:flex;flex-direction:column;gap:18px;
+    transition:background .25s ease;
+  }
+  .service-card:hover{background:var(--panel);}
+  .service-index{font-family:'JetBrains Mono',monospace;color:var(--amber);font-size:12px;}
+  .service-icon{
+    width:44px;height:44px;border:1px solid var(--line);border-radius:2px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .service-icon svg{width:22px;height:22px;stroke:var(--teal);}
+  .service-card h3{font-size:19px;margin-bottom:4px;}
+  .service-card p{color:var(--muted);font-size:14.5px;}
+  .service-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:10px;}
+  .service-tags span{
+    font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);
+    border:1px solid var(--line);padding:4px 8px;border-radius:2px;
+  }
+  @media (max-width:760px){.services-grid{grid-template-columns:1fr;}}
+
+  /* ===== WORK ===== */
+  .work-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:18px;
+  }
+  .work-grid .work-item:nth-child(1){grid-column:span 2;}
+  .work-item{
+    position:relative;border:1px solid var(--line);overflow:hidden;background:var(--panel);
+  }
+  .work-item img{
+    width:100%;height:100%;object-fit:cover;aspect-ratio:1/1;
+    transition:transform .5s ease;
+  }
+  .work-grid .work-item:nth-child(1) img{aspect-ratio:16/10;}
+  .work-item:hover img{transform:scale(1.04);}
+  .work-caption{
+    position:absolute;left:0;right:0;bottom:0;
+    background:linear-gradient(to top, rgba(12,13,16,0.92), transparent);
+    padding:18px 18px 14px;
+    display:flex;justify-content:space-between;align-items:flex-end;
+  }
+  .work-caption .wc-title{font-family:'Space Grotesk',sans-serif;font-size:14.5px;}
+  .work-caption .wc-tag{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--amber);}
+  @media (max-width:760px){
+    .work-grid{grid-template-columns:1fr 1fr;}
+    .work-grid .work-item:nth-child(1){grid-column:span 2;}
+  }
+  @media (max-width:540px){
+    .work-grid{grid-template-columns:1fr;}
+    .work-grid .work-item:nth-child(1){grid-column:span 1;}
+  }
+
+  /* ===== CONTACT ===== */
+  .contact-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:60px;
+  }
+  .contact-grid h2{font-size:clamp(1.9rem,3.4vw,2.8rem);margin-bottom:18px;}
+  .contact-grid p{color:var(--muted);max-width:440px;margin-bottom:30px;}
+  .contact-list{display:grid;gap:0;border-top:1px solid var(--line);}
+  .contact-list a, .contact-list .row{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:18px 0;border-bottom:1px solid var(--line);
+    font-family:'JetBrains Mono',monospace;font-size:13.5px;
+  }
+  .contact-list .row span:first-child{color:var(--muted);}
+  .contact-list a:hover span:last-child{color:var(--amber);}
+  .note{
+    margin-top:26px;font-size:12.5px;color:var(--muted);
+    border-left:2px solid var(--amber);padding-left:14px;
+  }
+  .contact-card{
+    border:1px solid var(--line);padding:34px;background:var(--panel);
+  }
+  .contact-card h3{font-size:17px;margin-bottom:14px;}
+  .field{margin-bottom:16px;}
+  .field label{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);display:block;margin-bottom:6px;}
+  .field input,.field textarea{
+    width:100%;background:var(--ink);border:1px solid var(--line);color:var(--paper);
+    padding:11px 12px;font-family:'Inter',sans-serif;font-size:13.5px;border-radius:2px;
+  }
+  .field textarea{resize:vertical;min-height:90px;}
+  .send-btn{
+    width:100%;margin-top:6px;justify-content:center;
+  }
+
+  footer{padding:34px 0;}
+  .foot-row{
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;
+    font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--muted);
+  }
+
+  @media (max-width:900px){
+    .hero-grid,.about-grid,.contact-grid{grid-template-columns:1fr;}
+    .hero-grid{gap:50px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== TIMELINE NAV ===== -->
+<nav class="timeline-nav">
+  <div class="timeline-track">
+    <div class="timeline-row">
+      <div class="timeline-brand"><span class="dot"></span> OLAOLUWA.OYEYIPO</div>
+      <ul class="timeline-marks" id="navMarks">
+        <li class="active" data-target="home"><a href="#home">00:00<span>Home</span></a></li>
+        <li data-target="about"><a href="#about">00:15<span>About</span></a></li>
+        <li data-target="services"><a href="#services">00:30<span>Services</span></a></li>
+        <li data-target="work"><a href="#work">00:45<span>Work</span></a></li>
+        <li data-target="contact"><a href="#contact">01:00<span>Contact</span></a></li>
+      </ul>
+    </div>
+    <div class="timeline-ruler">
+      <div class="timeline-fill" id="timelineFill"></div>
+      <div class="playhead" id="playhead"></div>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="home">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Based in Wales · Open to remote work worldwide</div>
+      <h1>Olaoluwa Anthony<br><em>Oyeyipo.</em></h1>
+      <div class="role-strip">
+        <span>Video Editor</span>
+        <span>Graphic Designer</span>
+        <span>Website Designer</span>
+      </div>
+      <p class="lead">I cut, design and build the things brands use to get noticed — from scroll-stopping social content to graphics that sell and websites that actually work.</p>
+      <div class="btn-row">
+        <a href="#work" class="btn btn-primary">View my work</a>
+        <a href="#contact" class="btn btn-ghost">Get in touch</a>
+      </div>
+    </div>
+    <div class="frame">
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+      <img src="assets/headshot.jpg" alt="Portrait of Olaoluwa Anthony Oyeyipo">
+      <span class="frame-tag mono">REC ● OLAKING</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section class="block" id="about">
+  <div class="wrap about-grid">
+    <div>
+      <div class="sec-head" style="margin-bottom:24px;"><span class="sec-num">01</span><h2>About</h2></div>
+    </div>
+    <div>
+      <p><strong>I'm Olaoluwa — most people know me as OlaKing.</strong> I'm a creative who works across three disciplines that all come down to the same thing: making something look right and work properly.</p>
+      <p>I'm currently studying Computer and Communications Engineering, which is where the technical side of what I do comes from. Outside of class, I run a creative practice covering video editing, graphic design and website design for clients across multiple industries — food brands, sports content, e-commerce and individuals who just need a sharp piece of design done well.</p>
+      <p>Whatever the brief, I bring the same approach: understand what the client actually needs, then build it properly the first time.</p>
+
+      <div class="capability-list">
+        <div class="cap">
+          <div class="cap-mark">A.</div>
+          <div><h4>Video Editor</h4><p>Cutting, pacing and finishing footage into content that holds attention — reels, promos and full-length edits.</p></div>
+        </div>
+        <div class="cap">
+          <div class="cap-mark">B.</div>
+          <div><h4>Graphic Designer</h4><p>Social posts, flyers, brand visuals and ad creative — built to grab attention and sell on sight.</p></div>
+        </div>
+        <div class="cap">
+          <div class="cap-mark">C.</div>
+          <div><h4>Website Designer</h4><p>Clean, fast, functional websites — from personal portfolios to small business sites.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SERVICES ===== -->
+<section class="block" id="services">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">02</span><h2>Services</h2><div class="sec-rule"></div></div>
+    <div class="services-grid">
+      <div class="service-card">
+        <span class="service-index">01</span>
+        <div class="service-icon">
+          <svg fill="none" viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="1"></rect><path d="M8 21h8M12 18v3"></path></svg>
+        </div>
+        <h3>Website Design</h3>
+        <p>Custom-built websites for personal brands and small businesses — responsive, fast-loading and easy to navigate.</p>
+        <div class="service-tags"><span>Portfolio sites</span><span>Landing pages</span><span>Business sites</span></div>
+      </div>
+      <div class="service-card">
+        <span class="service-index">02</span>
+        <div class="service-icon">
+          <svg fill="none" viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="3"></circle></svg>
+        </div>
+        <h3>Graphic Design</h3>
+        <p>Flyers, social media posts, ad creative and brand visuals designed to get noticed and get results.</p>
+        <div class="service-tags"><span>Flyers</span><span>Social posts</span><span>Ad creative</span></div>
+      </div>
+      <div class="service-card">
+        <span class="service-index">03</span>
+        <div class="service-icon">
+          <svg fill="none" viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+        </div>
+        <h3>Video Editing</h3>
+        <p>Reels, promos and longer-form edits — cut for pacing, sound and retention across every platform.</p>
+        <div class="service-tags"><span>Reels</span><span>Promos</span><span>Full edits</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WORK ===== -->
+<section class="block" id="work">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">03</span><h2>Selected work</h2><div class="sec-rule"></div></div>
+    <div class="work-grid">
+      <div class="work-item">
+        <img src="assets/work-2.jpg" alt="Epicure Hub restaurant promo design">
+        <div class="work-caption"><span class="wc-title">Epicure Hub — Launch Promo</span><span class="wc-tag mono">GRAPHIC DESIGN</span></div>
+      </div>
+      <div class="work-item">
+        <img src="assets/work-3.jpg" alt="King Leo football fan graphic design">
+        <div class="work-caption"><span class="wc-title">King Leo — Fan Tribute</span><span class="wc-tag mono">GRAPHIC DESIGN</span></div>
+      </div>
+      <div class="work-item">
+        <img src="assets/work-1.jpg" alt="Happy Crunch drink advert design">
+        <div class="work-caption"><span class="wc-title">Happy Crunch — Drink Ad</span><span class="wc-tag mono">GRAPHIC DESIGN</span></div>
+      </div>
+      <div class="work-item">
+        <img src="assets/work-4.jpg" alt="Shawarma food advert design">
+        <div class="work-caption"><span class="wc-title">Fresh &amp; Tasty — Shawarma Ad</span><span class="wc-tag mono">GRAPHIC DESIGN</span></div>
+      </div>
+      <div class="work-item">
+        <img src="assets/work-5.jpg" alt="Quickamart grocery app advert design">
+        <div class="work-caption"><span class="wc-title">Quickamart — App Promo</span><span class="wc-tag mono">GRAPHIC DESIGN</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section class="block" id="contact" style="border-bottom:none;">
+  <div class="wrap contact-grid">
+    <div>
+      <div class="sec-head" style="margin-bottom:24px;"><span class="sec-num">04</span><h2>Contact</h2></div>
+      <p>Have a project in mind? Whether it's a website, a set of graphics or a video that needs editing — tell me what you need and I'll get back to you.</p>
+      <div class="contact-list">
+        <a class="row" href="mailto:youremail@example.com"><span>Email</span><span>youremail@example.com</span></a>
+        <a class="row" href="https://wa.me/2340000000000"><span>WhatsApp</span><span>+234 000 000 0000</span></a>
+        <a class="row" href="https://twitter.com/yourhandle"><span>X / Twitter</span><span>@yourhandle</span></a>
+        <a class="row" href="https://tiktok.com/@yourhandle"><span>TikTok</span><span>@yourhandle</span></a>
+        <a class="row" href="https://discord.gg/yourinvite"><span>Discord</span><span>yourhandle</
